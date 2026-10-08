@@ -5,6 +5,7 @@ Socratic session, about 13:59 to 14:42 BST. High-level pass over routing, tunnel
 ## Already knew
 
 - A solid layer-3 picture: packets hop router to router, each router deciding the next hop from its routing table.
+- Default routes carry traffic upward from the edge until it reaches the core, where routers know where everything is. (Bori misread this at first as "default routes all the way"; Qing corrected it. Still to cover: the core learns its full table through BGP.)
 - Longest-prefix match: when several routes match a destination, the most specific one wins. Answered without prompting.
 
 ## Recalled with prompting
@@ -16,7 +17,6 @@ Socratic session, about 13:59 to 14:42 BST. High-level pass over routing, tunnel
 
 ## Corrections
 
-- **The internet core has no default route.** Core routers carry the full BGP table, so there is no "send it upstream" fallback there. Default routes live at the edge.
 - **A VPN is encapsulation, not NAT.** The inner packet is wrapped in a new outer header and unwrapped at the far end; nothing is rewritten in place.
 - **"Private" in MPLS VPNs meant isolation**, not encryption. Each customer's traffic is kept apart by labels and VRFs; it is not encrypted.
 
