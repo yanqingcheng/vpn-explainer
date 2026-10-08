@@ -17,14 +17,15 @@ A teaching page that starts from what a telecoms/networking person already knows
 
 Curious non-specialists who use VPNs but don't know what they do, plus technical readers who will check the details. The page should not lose the first group or get anything wrong for the second.
 
-## Outline (rough order, may change)
+## Outline (order agreed by Qing 2026-10-08, may still change)
 
-1. Packets and routing
-2. Tunnelling
-3. Encryption and WireGuard
-4. Hub-and-spoke vs mesh VPNs
-5. NAT traversal (and relays such as DERP)
-6. The control plane (how a coordination server ties it together)
+1. **Normal IP routing.** Longest-prefix match; NAT at the edge; ARP, with the layer-2 header rewritten at every hop; BGP and the full routing table in the core; briefly, how CDNs steer you via DNS or anycast.
+2. **Tunnelling / encapsulation.** First through provider MPLS VPNs: labels at "layer 2.5", VPWS, VPLS, and L3VPN with VRFs. Private by isolation, with no encryption. Then IP-in-IP / UDP over the internet: the outer header goes from the home public IP to the office gateway's public IP; the gateway strips it off and routes the inner packet.
+3. **What a VPN is, and the kinds.** A network made in software on top of another network. Four dimensions: what it carries (layer 2 or layer 3); its shape (point-to-point, hub-and-spoke, mesh); what it rides on (provider labels, or IP/UDP over the internet); where privacy comes from (isolation, or encryption plus authentication). Aside: consumer VPNs like NordVPN (a private exit to the internet) vs Tailscale (connecting your own devices).
+4. **Encryption and authentication.** WireGuard: open source, in the Linux kernel, small, fixed crypto choices, one handshake, an authentication tag on every packet. Compared with IPsec/IKE and OpenVPN/TLS. Why VPNs prefer UDP to TCP.
+5. **Shape: hub vs mesh.** Tailscale is a mesh, and why.
+6. **NAT traversal**, including DERP relays when a direct path fails.
+7. **The control plane.** How everything gets configured: keys, who can reach whom, and how each device learns about the others.
 
 Each step gets one short explanation plus one live simulator.
 
@@ -34,8 +35,10 @@ Each step gets one short explanation plus one live simulator.
 - One small sim per step (for example: send a packet across a few routers and watch the routing table decide each hop).
 - The sim code doubles as Qing's Go practice, so it should read like ordinary, idiomatic Go, not WASM tricks.
 
-## How Qing learns the Go
+## How Qing learns
 
+- **High level first, then detail.** Get the whole picture of a step before going deep on any part of it.
+- **Socratic.** Mostly questions, not lectures: Qing reasons her way to the answer from what she already knows, with corrections where she goes wrong.
 - **Propose, don't impose.** A learning path is proposed for each step; Qing endorses or reshapes it.
 - **Her pace, her curiosity.** Tangents are fine. If it feels like a slog, change the approach.
 - **Challenge understanding.** When Qing says she gets something, test it (explain it back, predict what the sim will do, write the next function). Find gaps early.
@@ -49,7 +52,7 @@ The learning section of Qing's Workshop (qingsworkshop.com) once it's complete. 
 
 ## First thin version (*proposed*, default unless Qing changes it)
 
-Step 1 only: packets and routing, with one Go/WASM simulator, written mostly by Qing.
+Step 1 only: normal IP routing, with one Go/WASM simulator, written mostly by Qing.
 
 ## Out of scope
 
@@ -58,5 +61,5 @@ Step 1 only: packets and routing, with one Go/WASM simulator, written mostly by 
 
 ## Open questions for Qing
 
-- Is the thin first version right (step 1, packets and routing, one sim)?
+- Is the thin first version right (step 1, normal IP routing, one sim)?
 - How much of the Go does she want to write herself (all the core sim logic, or a mix)?

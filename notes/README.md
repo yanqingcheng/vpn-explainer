@@ -10,7 +10,7 @@ Qing's notes from learning networking, Tailscale and Go while building this page
 
 Topics so far (folders are created at the first real session, not in advance):
 
-- `vpns-and-tailscale`: packets and routing up to tailnets, DERP and the control plane
+- [`vpns-and-tailscale`](vpns-and-tailscale/index.md): IP routing up to tailnets, DERP and the control plane
 - `go`: the language itself
 
 Filenames are kebab-case. Link between notes freely, and from notes back to the step of the page they belong to.
